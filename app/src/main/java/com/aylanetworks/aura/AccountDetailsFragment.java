@@ -359,7 +359,7 @@ public class AccountDetailsFragment extends Fragment {
 
         AylaEmailTemplate template = new AylaEmailTemplate();
 
-        String emailTemplateId = getResources().getString(R.string.confirmation_template_id);
+        String emailTemplateId = getResources().getString(R.string.confirmation_template_id_base) + LoginActivity.getDefaultLanguageCode();
         String emailSubject = getResources().getString(R.string.confirmation_email_subject);
 
         template.setEmailTemplateId(emailTemplateId);

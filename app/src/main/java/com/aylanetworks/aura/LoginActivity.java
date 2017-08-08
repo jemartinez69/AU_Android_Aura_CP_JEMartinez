@@ -70,6 +70,7 @@ import com.google.android.gms.common.api.Status;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -262,10 +263,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showProgress(true);
-                String emailTemplateId = getResources().getString(R.string
-                        .confirmation_template_id);
-                String emailSubject = getResources().getString(R.string
-                        .confirmation_email_subject);
+                String emailTemplateId = getResources().getString(R.string.confirmation_template_id_base) + getDefaultLanguageCode();
+                String emailSubject = getResources().getString(R.string.confirmation_email_subject);
 
                 AylaEmailTemplate template = new AylaEmailTemplate();
                 template.setEmailSubject(emailSubject);
@@ -297,6 +296,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
         builder.show();
+    }
+
+    private static String[] supportedLangauges = new String[] {"en","es","fr"};
+    public static String getDefaultLanguageCode() {
+        String defaultLanguage = Locale.getDefault().getLanguage();
+        for (String candidate: supportedLangauges) {
+            if (candidate.equals(defaultLanguage.toLowerCase())) {
+                return candidate;
+            }
+        }
+        return "en";
     }
 
     private void forgotPasswordClicked() {

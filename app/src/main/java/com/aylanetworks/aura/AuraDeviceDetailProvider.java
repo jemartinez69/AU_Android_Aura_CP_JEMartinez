@@ -15,7 +15,7 @@ import com.aylanetworks.aylasdk.localdevice.ble.AylaBLEDemoBoard;
 
 public class AuraDeviceDetailProvider implements AylaSystemSettings.DeviceDetailProvider {
     public static final String[] EVB_LAN_PROPERTIES = new String[]{"Blue_button", "Blue_LED",
-            "Green_LED"};
+            "Green_LED", "Red_LED"};
     public static final String[] GG_LAN_PROPERTIES = new String[]{"join_enable", "join_status", "cmd",
             "batch_hold"};
     public static final String[] PLUG_PROPERTIES = new String[]{"outlet1"};
@@ -30,6 +30,8 @@ public class AuraDeviceDetailProvider implements AylaSystemSettings.DeviceDetail
     public static final String OEM_MODEL_EVB = "ledevb";
     public static final String OEM_MODEL_PLUG="smartplug1";
     public static final String PLUG_OEM_MODEL = "EWPlug1";
+
+    public static final String OEM_MODEL_JEM = "JEM-1";
 
 
     @Override

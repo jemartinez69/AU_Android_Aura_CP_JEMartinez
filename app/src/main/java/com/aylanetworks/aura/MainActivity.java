@@ -262,6 +262,8 @@ public class MainActivity extends AppCompatActivity
         // Add in our own app-specific details
         settings.deviceDetailProvider = new AuraDeviceDetailProvider();
         settings.pushNotificationSenderId = PUSH_NOTIFICATION_SENDER_ID;
+        settings.appId = "cp_jem-id";
+        settings.appSecret = "cp_jem-WzmTa7HbOAlMHMSbvtFP99a_r-0";
         settings.context = this;
 
         return settings;

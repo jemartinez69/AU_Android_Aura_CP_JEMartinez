@@ -30,6 +30,7 @@ import com.android.volley.Response;
 import com.aylanetworks.aura.util.ContactHelper;
 import com.aylanetworks.aylasdk.AylaAPIRequest;
 import com.aylanetworks.aylasdk.AylaContact;
+import com.aylanetworks.aylasdk.AylaEmailTemplate;
 import com.aylanetworks.aylasdk.AylaLog;
 import com.aylanetworks.aylasdk.AylaNetworks;
 import com.aylanetworks.aylasdk.AylaDevice;
@@ -38,6 +39,7 @@ import com.aylanetworks.aylasdk.AylaPropertyTrigger;
 import com.aylanetworks.aylasdk.AylaPropertyTriggerApp;
 import com.aylanetworks.aylasdk.AylaServiceApp;
 import com.aylanetworks.aylasdk.AylaSystemSettings;
+import com.aylanetworks.aylasdk.AylaUser;
 import com.aylanetworks.aylasdk.error.AylaError;
 import com.aylanetworks.aylasdk.error.ErrorListener;
 
@@ -498,9 +500,10 @@ public class PropertyNotificationFragment extends Fragment implements
         for (AylaContact emailContact:_emailContacts){
             AylaPropertyTriggerApp triggerApp = new AylaPropertyTriggerApp();
             triggerApp.setEmailAddress(emailContact.getEmail());
-            //AylaEmailTemplate template = new AylaEmailTemplate();
-            triggerApp.configureAsEmail(emailContact, "[[property_name]] [[property_value]]", null,
-                    null);
+            AylaEmailTemplate template = new AylaEmailTemplate();
+            template.setEmailSubject("[[property_name]] has been updated for [[device_product_name]]");
+            triggerApp.configureAsEmail(emailContact, "The [[property_name]] has changed to [[property_value]]", emailContact.getDisplayName(),
+                    template);
             trigger.createApp(triggerApp,
                     new Response.Listener<AylaPropertyTriggerApp>() {
                         @Override
@@ -520,7 +523,7 @@ public class PropertyNotificationFragment extends Fragment implements
         }
         for (AylaContact smsContact:_smsContacts){
             AylaPropertyTriggerApp triggerApp = new AylaPropertyTriggerApp();
-            triggerApp.configureAsSMS(smsContact, "[[property_name]] [[property_value]]");
+            triggerApp.configureAsSMS(smsContact, "The [[property_name]] has changed to [[property_value]]");
 
             trigger.createApp(triggerApp,
                     new Response.Listener<AylaPropertyTriggerApp>() {
@@ -543,7 +546,7 @@ public class PropertyNotificationFragment extends Fragment implements
             AylaPropertyTriggerApp triggerApp = new AylaPropertyTriggerApp();
             String registrationId =PushNotification.registrationId;
             triggerApp.configureAsPushAndroid(registrationId
-                    , "[[property_name]] " + "[[property_value]] for Google Push"
+                    , "[[property_name]] has changed to " + "[[property_value]] for [[device_product_name]]"
                     , "default"
                     , "Google Push meta data");
 
